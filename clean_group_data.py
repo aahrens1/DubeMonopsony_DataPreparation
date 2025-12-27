@@ -38,9 +38,17 @@ def cleanGroupData(dataset):
     if dataset == "textlab_10" or dataset == "textlab_30":
         ## First, convert the reward from string to int
         hit_df["reward"] = hit_df["reward"].str.replace("$","").astype(float) * 100
+   
     ## compute log_reward and log_duration
-    hit_df["log_reward"] = hit_df["reward"].apply(np.log)
-    hit_df["log_duration"] = hit_df["duration"].apply(np.log)
+
+    hit_df["duration"] = pd.to_timedelta(hit_df["duration"], errors="coerce").dt.total_seconds() / 60.0
+    hit_df.loc[hit_df["duration"] <= 0, "duration"] = np.nan
+    hit_df["log_duration"] = np.log(hit_df["duration"])
+
+    hit_df["reward"] = pd.to_numeric(hit_df["reward"], errors="coerce")
+    hit_df.loc[hit_df["reward"] <= 0, "reward"] = np.nan
+    hit_df["log_reward"] = np.log(hit_df["reward"])
+
     ## And mark as invalid those observations where last_hits > first_hits
     ## (Note: only for ipeirotis data)
     if dataset == "ipeirotis":

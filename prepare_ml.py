@@ -563,11 +563,11 @@ def generateGramFeatures(hit_df, dataset, mode, partition):
 
     # Export feature names to file
     if dataset == "textlab_10" or dataset == "ipeirotis":
-        desc_feature_name_arr = count_vec_desc.get_feature_names()
+        desc_feature_name_arr = count_vec_desc.get_feature_names_out()
         desc_feature_name_arr = ["\"" + str(feat_name) + "\" in description" for feat_name in desc_feature_name_arr]
-        kw_feature_name_arr = count_vec_kw.get_feature_names()
+        kw_feature_name_arr = count_vec_kw.get_feature_names_out()
         kw_feature_name_arr = ["\"" + str(feat_name) + "\" in keywords" for feat_name in kw_feature_name_arr]
-    title_feature_name_arr = count_vec_title.get_feature_names()
+    title_feature_name_arr = count_vec_title.get_feature_names_out()
     title_feature_name_arr = ["\"" + str(feat_name) + "\" in title" for feat_name in title_feature_name_arr]
 
     feature_name_arr = title_feature_name_arr
