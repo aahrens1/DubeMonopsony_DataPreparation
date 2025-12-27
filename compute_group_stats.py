@@ -168,8 +168,7 @@ def computeGroupStats(dataset):
     group_level["duration"] = group_level["last_time"] - group_level["first_time"]
 
     # Convert to minutes
-    #group_level["duration"] = group_level["duration"].astype('timedelta64[m]')
-    group_level["duration"] = group_level["duration"].dt.total_seconds() / 60.0
+    group_level["duration"] = group_level["duration"].astype('timedelta64[m]')
 
     group_filename = os.path.join(group_path, dataset + "_group_stats.pkl")
     group_level.to_pickle(group_filename)

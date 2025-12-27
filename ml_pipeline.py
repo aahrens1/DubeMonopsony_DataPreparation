@@ -71,8 +71,8 @@ def runPipeline(dataset):
     runML(dataset, "fullba")
 
     # Finally, compute the double ML estimate using the ML residuals
-    #print("*** Computing final point estimate, exporting Stata residual file")
-    #computeEta(dataset)
+    print("*** Computing final point estimate, exporting Stata residual file")
+    computeEta(dataset)
     
 
 def main():

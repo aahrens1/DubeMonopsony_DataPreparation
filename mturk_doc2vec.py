@@ -66,7 +66,7 @@ def generateCorpora(dataset):
 
     def generateCorpus(doc_series):
         corpus = [gensim.models.doc2vec.TaggedDocument(preprocess(doc), [doc_id])
-              for doc_id,doc in doc_series.items()]
+              for doc_id,doc in doc_series.iteritems()]
         return corpus
 
     title_corpus = generateCorpus(titles)
@@ -111,16 +111,16 @@ def trainModels(dataset):
     # Train model
     print("Training title model")
     title_model.train(title_corpus, total_examples=title_model.corpus_count,
-        epochs=title_model.epochs)
+        epochs=title_model.iter)
     title_model.save(os.path.join(doc2vec_path,dataset + "_titles_doc2vec_trained.pkl"))
     if dataset != "textlab_30":
         print("Training description model")
         desc_model.train(desc_corpus, total_examples=desc_model.corpus_count,
-            epochs=desc_model.epochs)
+            epochs=desc_model.iter)
         desc_model.save(os.path.join(doc2vec_path,dataset + "_desc_doc2vec_trained.pkl"))
         print("Training keyword model")
         kw_model.train(kw_corpus, total_examples=kw_model.corpus_count,
-            epochs=kw_model.epochs)
+            epochs=kw_model.iter)
         kw_model.save(os.path.join(doc2vec_path,dataset + "_kw_doc2vec_trained.pkl"))
     print("Trained models saved")
 
