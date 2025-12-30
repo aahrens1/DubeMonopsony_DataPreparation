@@ -177,5 +177,5 @@ def main():
     args = parser.parse_args()
     runML(args.dataset, args.mode)
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    main()

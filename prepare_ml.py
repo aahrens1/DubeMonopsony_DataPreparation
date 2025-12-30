@@ -160,6 +160,13 @@ def generateNumericFeatures(hit_df, dataset, mode, partition):
     checkNulls(feature_df)
     fixNulls(feature_df)
 
+    # save all
+    feature_df_filename = os.path.join(ml_input_path, 
+        "./feature_" + dataset + "_" + str(mode) + ".pkl")
+    feature_df.to_pickle(feature_df_filename)
+    feature_df.to_csv(os.path.join(ml_input_path, 
+        "./feature_" + dataset + "_" + str(mode) + ".csv"), index=True)
+
     # First create the train-test dataframes
     if mode.endswith("ab"):
         train_df = feature_df.iloc[partition['A']]
@@ -683,6 +690,13 @@ def prepareML(dataset, mode):
         generateNumericFeatures(cleaned_df, dataset, mode, data_partition)
     else:
         generateGramFeatures(cleaned_df, dataset, mode, data_partition)
+
+    ## export (AA)
+    joblib.dump(cleaned_df, os.path.join(ml_input_path,
+        "./prepareML_" + dataset + "_" + str(mode) + ".pkl"))
+    cleaned_df.to_csv(os.path.join(ml_input_path,
+        "./prepareML_" + dataset + "_" + str(mode) + ".csv"), index=True)
+    #return cleaned_df
 
 def main():
     # Parses command-line arguments before calling prepareML()
