@@ -18,23 +18,54 @@ drop _merge
 export delimited "../stata_output/Monopsony_cleaned.csv", delim(";") replace
 save "../stata_output/Monopsony_cleaned.dta", replace
 
-***
+********************************************************************************
+* save other numerical variables 
+* both _fullab and _fullba are identical except from the top 100 word counts which I omit
+********************************************************************************
 
 clear
 import delimited ///
 	"/Users/kahrens/MyProjects/Dube_replication_condensed/ml_input/feature_ipeirotis_fullab.csv"
-tempfile fullab
-save `fullab'
+forvalues i = 0(1)99 {
+	cap drop kw_d`i'
+	cap drop desc_d`i'
+	cap drop title_d`i'
+	cap drop kw_r`i'
+	cap drop desc_r`i'
+	cap drop title_r`i'
+}
 
+tempfile fullab
+local vlist
+
+save `fullab'
+export delimited "../stata_output/Monopsony_cleaned_all.csv", delim(";") replace
+ 
+/*** the other file; for checking only
 clear
 import delimited ///
 	"/Users/kahrens/MyProjects/Dube_replication_condensed/ml_input/feature_ipeirotis_fullba.csv"
+forvalues i = 0(1)99 {
+	cap drop kw_d`i'
+	cap drop desc_d`i'
+	cap drop title_d`i'
+	cap drop kw_r`i'
+	cap drop desc_r`i'
+	cap drop title_r`i'
+}
+
 tempfile fullba
+foreach var of varlist duration-appr_num_gt {
+	rename `var' ba_`var' 
+}
 save `fullba'
 
-use `fullab', clear
-append using `fullba'
-tempfile full
-save `full'
-export delimited "../stata_output/Monopsony_cleaned_all.csv", delim(";") replace
- 
+merge 1:1 group_id using `fullab'
+
+di "`vlist'"
+foreach var in `vlist' {
+	di "`var'"
+	assert `var'==ba_`var'
+	//di r(N)
+}
+*/
