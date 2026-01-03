@@ -18,6 +18,7 @@ drop _merge
 export delimited "../stata_output/Monopsony_cleaned.csv", delim(";") replace
 save "../stata_output/Monopsony_cleaned.dta", replace
 
+
 ********************************************************************************
 * save other numerical variables 
 * both _fullab and _fullba are identical except from the top 100 word counts which I omit
@@ -41,7 +42,7 @@ local vlist
 save `fullab'
 export delimited "../stata_output/Monopsony_cleaned_all.csv", delim(";") replace
  
-/*** the other file; for checking only
+/*** the other file is identical; checking this below
 clear
 import delimited ///
 	"/Users/kahrens/MyProjects/Dube_replication_condensed/ml_input/feature_ipeirotis_fullba.csv"

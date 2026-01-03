@@ -50,7 +50,7 @@ def runPipeline(dataset):
     # A->B run with just n-gram features
     print("*** A->B n-gram ML run")
     prepareML(dataset, "gramab")
-    runML(dataset, "gramab")
+    #runML(dataset, "gramab")
     # Compute and save the most predictive features
     print("*** A->B computing most predictive features")
     computeMostPredictive(dataset, "gramab")
@@ -58,17 +58,17 @@ def runPipeline(dataset):
     # of the features detailed in Appendix D
     print("*** A->B full ML run")
     prepareML(dataset, "fullab")
-    runML(dataset, "fullab")
+    #runML(dataset, "fullab")
 
     # Repeat the above, but for the B->A run
     print("*** B->A n-gram ML run")
     prepareML(dataset, "gramba")
-    runML(dataset, "gramba")
+    #runML(dataset, "gramba")
     print("*** B->A computing most predictive features")
     computeMostPredictive(dataset, "gramba")
     print("*** B->A full ML run")
     prepareML(dataset, "fullba")
-    runML(dataset, "fullba")
+    #runML(dataset, "fullba")
 
     # Finally, compute the double ML estimate using the ML residuals
     #print("*** Computing final point estimate, exporting Stata residual file")
@@ -91,5 +91,5 @@ def main():
     generateR2Table()
     
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    main()

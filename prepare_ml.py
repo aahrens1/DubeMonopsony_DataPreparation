@@ -481,7 +481,10 @@ def mergeDoc2Vec(feature_df, dataset):
     doc2vec_df = pd.read_pickle(os.path.join(doc2vec_path, dataset + "_doc2vec.pkl"))
     feature_df = feature_df.merge(doc2vec_df, how='left', left_index=True, right_index=True)
     print("Doc2Vec features merged in")
-    print(feature_df.tail())
+    print(feature_df.tail()) 
+    return feature_df
+    feature_df.to_csv(os.path.join(doc2vec_path,
+                        dataset + "_doc2vec_merged.csv"))
 
 def checkNulls(feature_df):
     ## Sanity check that none of the features have inf/nan values
@@ -707,5 +710,5 @@ def main():
     
     prepareML(args.dataset, args.mode)
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    main()
